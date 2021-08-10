@@ -662,6 +662,7 @@ if (nivel_1 == 49){
   char n,n1;    
   uint8_t l,o; 
   uint8_t prueba=0,aciertos = 0;
+  //logica del juego.
   do{
     while(teclas == 0 or teclas == 120 or teclas == 44 ){teclas= teclado();}// se espera hasta que se presione una tecla  
     delay (200);
@@ -676,8 +677,7 @@ if (nivel_1 == 49){
     Serial.println(teclas);    
     Serial.print("key 2 ");
     Serial.println(teclas2);
-    
-    
+        
     if(teclas == 49)      { j = 0; k = 0; n='1';}
     else if(teclas == 50) { j = 0; k = 1; n='2';}
     else if(teclas == 51) { j = 0; k = 2; n='3';}
@@ -717,56 +717,58 @@ if (nivel_1 == 49){
     tft.fillRect(o*32, l*32, 32, 32, Array[l][o]); //fila, columna, altura, ancho
     tft.drawRect(o*32, l*32, 32, 32, WHITE);    
     //teclas2 = 0;
-    if(Array[l][o] == Array[j][k]){
+
+    if(Array[l][o] == Array[j][k]){ //Sí ambos son iguales.
       aciertos++;
       tft.setTextSize(0.8);
       tft.setCursor(3 , 0);
       tft.print("Acierto.");
       tft.setCursor(64 , 0);
       tft.print(aciertos);
+      //bloquear teclas.
       //tft.print(" ");
-    }else{
+    }else if(Array[l][o] != Array[j][k]){ // En caso de error.      
       tft.setTextSize(0.8);
       tft.setCursor(3 , 0);
       tft.print("Error.");
-      tft.setTextSize(3.8);                             
-          if (n == 'A' || n == 'B' || n == 'C' 
-              || n == 'D' || n == '*' || n == '#' ) {
-                tft.setTextColor(WHITE, RED);
-                tft.fillRect(k*32, j*32, 32, 32, RED);
-                tft.drawRect(k*32, j*32, 32, 32, WHITE);                                
-                tft.setCursor(k*32+5, j*32+2);
-                tft.print(n); 
-            }else{
-                tft.setTextColor(WHITE, BLUE);
-                tft.fillRect(k*32, j*32, 32, 32, BLUE);   
-                tft.drawRect(k*32, j*32, 32, 32, WHITE);                                
-                tft.setCursor(k*32+5, j*32+2);
-                tft.print(n);
-          }         
+      tft.setTextSize(3.8);       
+      
+      delay (500);  
+      if (n == 'A' || n == 'B' || n == 'C' 
+          || n == 'D' || n == '*' || n == '#' ) {
+          tft.setTextColor(WHITE, RED);
+          tft.fillRect(k*32, j*32, 32, 32, RED);
+          tft.drawRect(k*32, j*32, 32, 32, WHITE);                                
+          tft.setCursor(k*32+5, j*32+2);
+          tft.print(n); 
+      }else{
+          tft.setTextColor(WHITE, BLUE);
+          tft.fillRect(k*32, j*32, 32, 32, BLUE);   
+          tft.drawRect(k*32, j*32, 32, 32, WHITE);                                
+          tft.setCursor(k*32+5, j*32+2);
+          tft.print(n);
+      }         
           
-          if (n1 == 'A' || n1 == 'B' || n1 == 'C' 
-            || n1 == 'D' || n1 == '*' || n1 == '#' ) {
-              tft.setTextColor(WHITE, RED);
-              tft.fillRect(o*32, l*32, 32, 32, RED); 
-              tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
-              tft.setCursor(o*32+5, l*32+2);
-              tft.print(n1);
-          }else{
-              tft.setTextColor(WHITE, BLUE);              
-              tft.fillRect(o*32, l*32, 32, 32, BLUE);   
-              tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
-              tft.setCursor(o*32+5, l*32+2);
-              tft.print(n1);
-        } 
-      
-      
+      if (n1 == 'A' || n1 == 'B' || n1 == 'C' 
+        || n1 == 'D' || n1 == '*' || n1 == '#' ) {
+          tft.setTextColor(WHITE, RED);
+          tft.fillRect(o*32, l*32, 32, 32, RED); 
+          tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
+          tft.setCursor(o*32+5, l*32+2);
+          tft.print(n1);
+      }else{
+          tft.setTextColor(WHITE, BLUE);              
+          tft.fillRect(o*32, l*32, 32, 32, BLUE);   
+          tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
+          tft.setCursor(o*32+5, l*32+2);
+          tft.print(n1);
+      } 
       
     }
     
         
-    if(teclas == 44 or teclas !=0){ teclas = 0;}
-    if(teclas2 == 44 or teclas2 !=0){teclas2 = 0;}
+    if(teclas == 44 or teclas !=0){ teclas = 0;} //Casos donde se lee mal el pad numerico
+    if(teclas2 == 44 or teclas2 !=0){teclas2 = 0;} //Casos donde se lee mal el pad numerico
 
     if(teclas == 0 and teclas2 == 0){prueba++;}
        
@@ -796,7 +798,7 @@ if (nivel_1 == 49){
       }
     }
   }
-delay (12000);
+delay (10000);
 
   }
 }
