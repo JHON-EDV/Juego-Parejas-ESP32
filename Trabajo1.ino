@@ -795,54 +795,143 @@ if (nivel_1 == 49){
       }
     }
   }
-delay (10000);
-
-  }
+delay (10000);}
 }
-
 
 
 /// *********** Funcion 6*6 ************************
 void graficar6_6(uint8_t  nivel_1) {
-  char *Str1Vals[36] = {  "11", "12", "13", "1A", "14", "15",
-                          "21", "22", "23", "2A", "24", "25",
-                          "31", "32", "33", "3A", "44", "35",
-                          "41", "42", "43", "4A", "44", "45",
-                          "51", "52", "53", "5A", "54", "55",
-                          "61", "62", "63", "6A", "64", "65"};   
-      
-  if (nivel_1 == 49){  
-    uint32_t count = 0;
-    for (uint8_t y = 0; y < 128; y += 22) {
-      for (uint8_t x = 0; x < 128; x += 22) {
-        uint16_t randome = random(0xFFFF);
-        tft.fillRect(x, y, 22, 22, randome); //fila, columna, altura, ancho
-        tft.setTextSize(0.8);
-        tft.setTextColor(WHITE, randome);
-        tft.setCursor(x+3, y+2);
-        tft.print(Str1Vals[count]);
+  int Array[7][7] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}}; //Matriz de valores 
+  // Imprimir la matriz
+    // Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); Serial.print(" \t");Serial.print(Array[0][6]);               
+    // Serial.print(" \n"); 
+    // Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); Serial.print(" \t");Serial.print(Array[1][6]);               
+    // Serial.print(" \n"); 
+    // Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); Serial.print(" \t");Serial.print(Array[2][6]);               
+    // Serial.print(" \n");     
+    // Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); Serial.print(" \t");Serial.print(Array[3][6]);                    
+    // Serial.print(" \n");  
+    // Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); Serial.print(" \t");Serial.print(Array[4][6]);                    
+    // Serial.print(" \n");  
+    // Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); Serial.print(" \t");Serial.print(Array[5][6]);                    
+    // Serial.print(" \n");  Serial.print(" \n");  
+  for (uint8_t z = 0; z<=17; z++){
+
+  uint8_t pocionx = random(0,6); // crear pareja al azar
+  uint8_t pociony = random(0,6); // crear pareja al azar
+  uint8_t pocionx2 = random(0,6); // crear pareja al azar 
+  uint8_t pociony2 = random(0,6); // crear pareja al azar
+  uint16_t randon = random(0xFFFF);// color de la pareja    
+  
+
+    if(Array[pocionx][pociony] == 0){
+        Array[pocionx][pociony] = randon; //cargar en el arreglo            
+    }else{
+      while(Array[pocionx][pociony]!=0){
+        pocionx = random(0,6); // crear pareja al azar
+        pociony = random(0,6); // crear pareja al azar    
+        if(Array[pocionx][pociony] == 0){
+          Array[pocionx][pociony] = randon; //cargar en el arreglo           
+          break;
+          }                     
+        }                                
+    }
+
+    
+    if(Array[pocionx2][pociony2] == 0){         
+        Array[pocionx2][pociony2] = randon; //cargar en el arreglo        
+    }else{
+      while(Array[pocionx][pociony]!=0){
+        pocionx2 = random(0,6); // crear pareja al azar
+        pociony2 = random(0,6); // crear pareja al azar    
+        if(Array[pocionx2][pociony2] == 0){
+          Array[pocionx2][pociony2] = randon; //cargar en el arreglo         
+          break;     
+          }                     
+        }                                
+    }
+  // Imprimir la matriz
+    // Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); Serial.print(" \t");Serial.print(Array[0][6]);               
+    // Serial.print(" \n"); 
+    // Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); Serial.print(" \t");Serial.print(Array[1][6]);               
+    // Serial.print(" \n"); 
+    // Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); Serial.print(" \t");Serial.print(Array[2][6]);               
+    // Serial.print(" \n");     
+    // Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); Serial.print(" \t");Serial.print(Array[3][6]);                    
+    // Serial.print(" \n");  
+    // Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); Serial.print(" \t");Serial.print(Array[4][6]);                    
+    // Serial.print(" \n");  
+    // Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); Serial.print(" \t");Serial.print(Array[5][6]);                    
+    // Serial.print(" \n");  Serial.print(" \n");          
+  }   
+
+  
+
+char *Str1Vals[36] = {  "11", "12", "13", "1A", "14", "15",
+                        "21", "22", "23", "2A", "24", "25",
+                        "31", "32", "33", "3A", "34", "35",
+                        "41", "42", "43", "4A", "44", "45",
+                        "51", "52", "53", "5A", "54", "55",
+                        "61", "62", "63", "6A", "64", "65"};  
+
+if (nivel_1 == 49){  
+  uint32_t count = 0;
+  uint32_t count2 = 0;
+  uint32_t count3 = 0;
+  for (uint8_t y = 0; y < 128; y += 22) {
+    for (uint8_t x = 0; x < 128; x += 22) {               
+      tft.fillRect(x, y, 22, 22, Array[count][count2]); //fila, columna, altura, ancho        
+      tft.drawRect(x, y, 22, 22, WHITE); 
+      tft.setTextSize(1.5);
+      tft.setTextColor(WHITE, Array[count][count2]);
+      tft.setCursor(x + 2, y + 2);
+      tft.print(Str1Vals[count3]);
+      //Serial.print(Array[count][count2]);Serial.print(" \n");
+      count2++;
+      count3++;
+      if (count3 == 36) {
+        count = 0;
+      }
+      if (count == 6) {
+        count = 0;
+      }
+      if(count2 == 6){
         count++;
-        if (count == 36) {count = 0;}
+        count2 = 0;
       }
     }
-    delay (12000);
-    for (uint8_t y = 0; y < 128; y += 22) {
-        for (uint8_t x = 0; x < 128; x += 22) {
-          tft.fillRect(x, y, 22, 22, BLACK); //fila, columna, altura, ancho    
-          tft.setTextSize(1.7);
-          tft.setTextColor(WHITE, BLUE);
-          tft.fillRect(x, y, 22, 22, BLUE);          
-          tft.drawRect(x, y, 22, 22, WHITE); 
-          tft.setCursor(x+5, y+5);
-          tft.print(Str1Vals[count]);
-          count++;
-          if (count == 36) { count = 0;}
-      }
-    }
-    delay (10000);  
   }
- 
+  // uint32_t count = 0;
+  // for (uint8_t y = 0; y < 128; y += 22) {
+  //   for (uint8_t x = 0; x < 128; x += 22) {
+  //     uint16_t randome = random(0xFFFF);
+  //     tft.fillRect(x, y, 22, 22, randome); //fila, columna, altura, ancho
+  //     tft.setTextSize(0.8);
+  //     tft.setTextColor(WHITE, randome);
+  //     tft.setCursor(x+3, y+2);
+  //     tft.print(Str1Vals[count]);
+  //     count++;
+  //     if (count == 36) {count = 0;}
+  //}  
+  }
+  // delay (12000);
+  // for (uint8_t y = 0; y < 128; y += 22) {
+  //     for (uint8_t x = 0; x < 128; x += 22) {
+  //       tft.fillRect(x, y, 22, 22, BLACK); //fila, columna, altura, ancho    
+  //       tft.setTextSize(1.7);
+  //       tft.setTextColor(WHITE, BLUE);
+  //       tft.fillRect(x, y, 22, 22, BLUE);          
+  //       tft.drawRect(x, y, 22, 22, WHITE); 
+  //       tft.setCursor(x+5, y+5);
+  //       tft.print(Str1Vals[count]);
+  //       count++;
+  //       if (count == 36) { count = 0;}
+  //   }
+  // }
+  delay (10000);  
 }
+ 
+
 
 
 /// ****** TECLADO ***********
