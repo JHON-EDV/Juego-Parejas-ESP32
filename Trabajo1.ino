@@ -801,7 +801,68 @@ if (nivel_1 == 49){
   }while(prueba<=8);//end for 
 //Nivel Medio.  
 }else if(nivel_1 == 50){
-  
+  // Imprimir la matriz
+  Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");
+  Serial.print(" \n"); 
+  Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");
+  Serial.print(" \n"); 
+  Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");
+  Serial.print(" \n");     
+  Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");
+  Serial.print(" \n");  
+  Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");
+  Serial.print(" \n");  
+  Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");
+  Serial.print(" \n");  Serial.print(" \n");  
+
+  // For para crear pareja.
+  for (uint8_t z = 0; z<=17; z++){
+    uint8_t pocionx = random(0,6); // crear pareja al azar
+    uint8_t pociony = random(0,6); // crear pareja al azar
+    uint8_t pocionx2 = random(0,6); // crear pareja al azar 
+    uint8_t pociony2 = random(0,6); // crear pareja al azar
+    uint16_t randon = random(1,17);// color de la pareja    
+    // Crear Pareja x,y.
+    if(Array[pocionx][pociony] == 0){
+        Array[pocionx][pociony] = randon; //cargar en el arreglo            
+    }else{
+      while(Array[pocionx][pociony]!=0){
+        pocionx = random(0,6); // crear pareja al azar
+        pociony = random(0,6); // crear pareja al azar    
+        if(Array[pocionx][pociony] == 0){
+          Array[pocionx][pociony] = randon; //cargar en el arreglo           
+          break;
+          }                     
+        }                                
+    }
+    // Crear Pareja x2,y2.  
+    if(Array[pocionx2][pociony2] == 0){         
+        Array[pocionx2][pociony2] = randon; //cargar en el arreglo        
+    }else{
+      while(Array[pocionx][pociony]!=0){
+        pocionx2 = random(0,6); // crear pareja al azar
+        pociony2 = random(0,6); // crear pareja al azar    
+        if(Array[pocionx2][pociony2] == 0){
+          Array[pocionx2][pociony2] = randon; //cargar en el arreglo         
+          break;     
+          }                     
+        }                                
+      }
+    // Imprimir la matriz
+    Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); 
+    Serial.print(" \n"); 
+    Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); 
+    Serial.print(" \n"); 
+    Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); 
+    Serial.print(" \n");     
+    Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); 
+    Serial.print(" \n");  
+    Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); 
+    Serial.print(" \n");  
+    Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); 
+    Serial.print(" \n");  Serial.print(" \n");     
+  }
+  // Mostar la tabla de usuario.
   uint16_t count = 0;
   for (uint8_t y = 0; y < 128; y += 32) {
       for (uint8_t x = 0; x < 128; x += 32) {
@@ -841,18 +902,18 @@ void graficar6_6(uint8_t  nivel_1) {
 if (nivel_1 == 49){
   
   // Imprimir la matriz
-  // Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); Serial.print(" \t");Serial.print(Array[0][6]);               
-  // Serial.print(" \n"); 
-  // Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); Serial.print(" \t");Serial.print(Array[1][6]);               
-  // Serial.print(" \n"); 
-  // Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); Serial.print(" \t");Serial.print(Array[2][6]);               
-  // Serial.print(" \n");     
-  // Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); Serial.print(" \t");Serial.print(Array[3][6]);                    
-  // Serial.print(" \n");  
-  // Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); Serial.print(" \t");Serial.print(Array[4][6]);                    
-  // Serial.print(" \n");  
-  // Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); Serial.print(" \t");Serial.print(Array[5][6]);                    
-  // Serial.print(" \n");  Serial.print(" \n");  
+  Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); Serial.print(" \t");Serial.print(Array[0][6]);               
+  Serial.print(" \n"); 
+  Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); Serial.print(" \t");Serial.print(Array[1][6]);               
+  Serial.print(" \n"); 
+  Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); Serial.print(" \t");Serial.print(Array[2][6]);               
+  Serial.print(" \n");     
+  Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); Serial.print(" \t");Serial.print(Array[3][6]);                    
+  Serial.print(" \n");  
+  Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); Serial.print(" \t");Serial.print(Array[4][6]);                    
+  Serial.print(" \n");  
+  Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); Serial.print(" \t");Serial.print(Array[5][6]);                    
+  Serial.print(" \n");  Serial.print(" \n");  
 
   // For para crear pareja.
   for (uint8_t z = 0; z<=17; z++){
@@ -887,19 +948,19 @@ if (nivel_1 == 49){
         }                     
       }                                
     }
-  // Imprimir la matriz
-  // Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); Serial.print(" \t");Serial.print(Array[0][6]);               
-  // Serial.print(" \n"); 
-  // Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); Serial.print(" \t");Serial.print(Array[1][6]);               
-  // Serial.print(" \n"); 
-  // Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); Serial.print(" \t");Serial.print(Array[2][6]);               
-  // Serial.print(" \n");     
-  // Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); Serial.print(" \t");Serial.print(Array[3][6]);                    
-  // Serial.print(" \n");  
-  // Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); Serial.print(" \t");Serial.print(Array[4][6]);                    
-  // Serial.print(" \n");  
-  // Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); Serial.print(" \t");Serial.print(Array[5][6]);                    
-  // Serial.print(" \n");  Serial.print(" \n");          
+  //Imprimir la matriz
+  Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]); Serial.print(" \t");Serial.print(Array[0][4]); Serial.print(" \t");Serial.print(Array[0][5]); Serial.print(" \t");Serial.print(Array[0][6]);               
+  Serial.print(" \n"); 
+  Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]); Serial.print(" \t");Serial.print(Array[1][4]); Serial.print(" \t");Serial.print(Array[1][5]); Serial.print(" \t");Serial.print(Array[1][6]);               
+  Serial.print(" \n"); 
+  Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]); Serial.print(" \t");Serial.print(Array[2][4]); Serial.print(" \t");Serial.print(Array[2][5]); Serial.print(" \t");Serial.print(Array[2][6]);               
+  Serial.print(" \n");     
+  Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); Serial.print(" \t");Serial.print(Array[3][4]); Serial.print(" \t");Serial.print(Array[3][5]); Serial.print(" \t");Serial.print(Array[3][6]);                    
+  Serial.print(" \n");  
+  Serial.print(Array[4][0]);Serial.print(" \t");Serial.print(Array[4][1]);Serial.print(" \t");Serial.print(Array[4][2]);Serial.print(" \t");Serial.print(Array[4][3]); Serial.print(" \t");Serial.print(Array[4][4]); Serial.print(" \t");Serial.print(Array[4][5]); Serial.print(" \t");Serial.print(Array[4][6]);                    
+  Serial.print(" \n");  
+  Serial.print(Array[5][0]);Serial.print(" \t");Serial.print(Array[5][1]);Serial.print(" \t");Serial.print(Array[5][2]);Serial.print(" \t");Serial.print(Array[5][3]); Serial.print(" \t");Serial.print(Array[5][4]); Serial.print(" \t");Serial.print(Array[5][5]); Serial.print(" \t");Serial.print(Array[5][6]);                    
+  Serial.print(" \n");  Serial.print(" \n");          
   }   
   //Imprimir matriz de pares.  
   uint32_t count = 0;
@@ -943,7 +1004,7 @@ if (nivel_1 == 49){
     uint8_t pociony = random(0,6); // crear pareja al azar
     uint8_t pocionx2 = random(0,6); // crear pareja al azar 
     uint8_t pociony2 = random(0,6); // crear pareja al azar
-    uint16_t randon = random(0,6);// color de la pareja    
+    uint16_t randon = random(1,17);// color de la pareja    
     // Crear Pareja x,y.
     if(Array[pocionx][pociony] == 0){
         Array[pocionx][pociony] = randon; //cargar en el arreglo            
