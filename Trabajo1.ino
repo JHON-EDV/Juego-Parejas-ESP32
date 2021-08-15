@@ -903,15 +903,15 @@ if (nivel_1 == 49){
             tft.setTextSize(3.8);
               if (Str1Vals[count] == 'A' || Str1Vals[count] == 'B' || Str1Vals[count] == 'C' 
                   || Str1Vals[count] == 'D' || Str1Vals[count] == '*' || Str1Vals[count] == '#' ) {
-              tft.setTextColor(WHITE, RED);
-              tft.fillRect(x, y, 32, 32, RED); 
+                tft.setTextColor(WHITE, RED);
+                tft.fillRect(x, y, 32, 32, RED); 
               }else{
-              tft.setTextColor(WHITE, BLUE);
-              tft.fillRect(x, y, 32, 32, BLUE); 
+                tft.setTextColor(WHITE, BLUE);
+                tft.fillRect(x, y, 32, 32, BLUE); 
               }
-              tft.drawRect(x, y, 32, 32, WHITE); 
-              tft.setCursor(x + 5, y + 2);
-              tft.print(Str1Vals[count]);
+                tft.drawRect(x, y, 32, 32, WHITE); 
+                tft.setCursor(x + 5, y + 2);
+                tft.print(Str1Vals[count]);
             count++;
             if (count == 16) {
             count = 0;
@@ -932,13 +932,7 @@ if (nivel_1 == 49){
       while(teclas2 == 0 or teclas2 == 120 or teclas2 == 44 or teclas2==teclas){teclas2= teclado();}// se espera hasta que se presione una tecla  
       delay (200);
       key_f=0;
-      
-      Serial.println(prueba);
-      Serial.print("key 1 ");
-      Serial.println(teclas);    
-      Serial.print("key 2 ");
-      Serial.println(teclas2);
-          
+                
       if(teclas == 49)      { j = 0; k = 0; n='1';}
       else if(teclas == 50) { j = 0; k = 1; n='2';}
       else if(teclas == 51) { j = 0; k = 2; n='3';}
@@ -959,25 +953,26 @@ if (nivel_1 == 49){
       tft.drawRect(k*32, j*32, 32, 32, WHITE);   
       
 
-      if(teclas2 == 49)      { l = 0; o = 0;n='1';}
-      else if(teclas2 == 50) { l = 0; o = 1;n='2';}
-      else if(teclas2 == 51) { l = 0; o = 2;n='3';}
-      else if(teclas2 == 65) { l = 0; o = 3;n='A';}
-      else if(teclas2 == 52) { l = 1; o = 0;n='4';}
-      else if(teclas2 == 53) { l = 1; o = 1;n='5';}
-      else if(teclas2 == 54) { l = 1; o = 2;n='6';}
-      else if(teclas2 == 66) { l = 1; o = 3;n='B';}
-      else if(teclas2 == 55) { l = 2; o = 0;n='7';}
-      else if(teclas2 == 56) { l = 2; o = 1;n='8';}
-      else if(teclas2 == 57) { l = 2; o = 2;n='9';}
-      else if(teclas2 == 67) { l = 2; o = 3;n='C';}
-      else if(teclas2 == 42) { l = 3; o = 0;n='*';}
-      else if(teclas2 == 48) { l = 3; o = 1;n='0';}
-      else if(teclas2 == 35) { l = 3; o = 2;n='#';}
-      else if(teclas2 == 68) { l = 3; o = 3;n='D';}    
+      if(teclas2 == 49)      { l = 0; o = 0;n1='1';}
+      else if(teclas2 == 50) { l = 0; o = 1;n1='2';}
+      else if(teclas2 == 51) { l = 0; o = 2;n1='3';}
+      else if(teclas2 == 65) { l = 0; o = 3;n1='A';}
+      else if(teclas2 == 52) { l = 1; o = 0;n1='4';}
+      else if(teclas2 == 53) { l = 1; o = 1;n1='5';}
+      else if(teclas2 == 54) { l = 1; o = 2;n1='6';}
+      else if(teclas2 == 66) { l = 1; o = 3;n1='B';}
+      else if(teclas2 == 55) { l = 2; o = 0;n1='7';}
+      else if(teclas2 == 56) { l = 2; o = 1;n1='8';}
+      else if(teclas2 == 57) { l = 2; o = 2;n1='9';}
+      else if(teclas2 == 67) { l = 2; o = 3;n1='C';}
+      else if(teclas2 == 42) { l = 3; o = 0;n1='*';}
+      else if(teclas2 == 48) { l = 3; o = 1;n1='0';}
+      else if(teclas2 == 35) { l = 3; o = 2;n1='#';}
+      else if(teclas2 == 68) { l = 3; o = 3;n1='D';}    
       tft.fillRect(o*32, l*32, 32, 32, Array[l][o]); //fila, columna, altura, ancho , valor en [l,o]
       tft.drawRect(o*32, l*32, 32, 32, WHITE);    
       
+      delay(700);
     //Sí ambos son iguales.
       if(Array[l][o] == Array[j][k]){ 
         aciertos++;
@@ -988,14 +983,13 @@ if (nivel_1 == 49){
         tft.print(aciertos);
         //bloquear teclas.
         //tft.print(" ");
-      // En caso de error.        
-      }else if(Array[l][o] != Array[j][k]){ 
+    // En caso de error.        
+      }else if(Array[l][o] != Array[j][k]){                 
         tft.setTextSize(0.8);
         tft.setCursor(3 , 0);
         tft.print("Error.");
         tft.setTextSize(3.8);            
         
-
         if (n == 'A' || n == 'B' || n == 'C' 
             || n == 'D' || n == '*' || n == '#' ) {
           tft.setTextColor(WHITE, RED);
@@ -1025,10 +1019,8 @@ if (nivel_1 == 49){
           tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
           tft.setCursor(o*32+5, l*32+2);
           tft.print(n1);
-        } 
-        
-        Serial.println(o);Serial.println(l);Serial.println(k);Serial.println(j);
-        delay (100); 
+        }                 
+        delay (25); 
       }
       
           
