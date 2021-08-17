@@ -795,12 +795,30 @@ void IRAM_ATTR Int_F3(){
   bandera=1;
   rebote=millis();
 }
+volatile uint16_t tiempo1 = 120;//Indica ingreso a interrupción
+volatile uint16_t totalInt=0;//Contador de interrupciones
+hw_timer_t *timer=NULL;
 
+void IRAM_ATTR Int_Timer(){
+    tiempo1--;   
+    tft.fillRect(0, 96, 30 , 15, RED);
+    // tft.setTextColor(WHITE, BLUE);
+    tft.setTextSize(0.5);
+    tft.setCursor(3, 96);
+    tft.print("T: ");  
+    tft.print(tiempo1);      
+    tft.print(" ");      
+    if(tiempo1==0){
+      timerEnd(timer);
+    }
+}
 // ************ Función 4*4 ************************
 void graficar4_4(uint8_t  nivel_1) {
   int Array[4][4] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}}; //Matriz de valores 
   char Str1Vals[16] = {'1', '2', '3', 'A', '4', '5', '6', 'B', '7', '8', '9', 'C', '*', '0', '#', 'D'};
   int Usado[8] = {0,0,0,0,0,0,0,0}; 
+  int Tecl1[8] = {0,0,0,0,0,0,0,0}; 
+  int Tecl2[8] = {0,0,0,0,0,0,0,0}; 
 //***************************************************
 //Nivel Facil.
 if (nivel_1 == 49){  
@@ -924,15 +942,30 @@ if (nivel_1 == 49){
     uint8_t l,o; 
     uint8_t prueba=0,aciertos = 0;
   //logica del juego.
-    do{
-      while(teclas == 0 or teclas == 120 or teclas == 44 ){teclas= teclado();}// se espera hasta que se presione una tecla  
-      delay (200);
-      key_f=0;
+    timerAlarmWrite(timer,10000,true); //Timer 0 configurado para 1000000 de conteos con autorecarga
+    timerAlarmEnable(timer);  
+    while(prueba >= 16 or tiempo1 != 0){
+      Serial.print("\n");Serial.print(prueba);Serial.print("\n");      
+      while(teclas == 0 or teclas == 120 or teclas == 44 or teclas == 192 or teclas== 188
+            or teclas ==Tecl1[0] or teclas ==Tecl1[1] or teclas ==Tecl1[2] 
+            or teclas ==Tecl1[3] or teclas ==Tecl1[4] or teclas ==Tecl1[5] 
+            or teclas ==Tecl1[6] or teclas ==Tecl2[0] or teclas ==Tecl2[1]
+            or teclas ==Tecl2[2] or teclas ==Tecl2[3] or teclas ==Tecl2[4]
+            or  teclas ==Tecl2[5] or teclas ==Tecl2[6]){teclas= teclado();}// se espera hasta que se presione una tecla  
+        delay (230);
+        key_f=0;      
+        Serial.print("teclas \t");Serial.print(teclas);Serial.print(" \n\n");
       
-      while(teclas2 == 0 or teclas2 == 120 or teclas2 == 44 or teclas2==teclas){teclas2= teclado();}// se espera hasta que se presione una tecla  
-      delay (200);
-      key_f=0;
-                
+      // Se compara con todas las señales raras o que no se pueden admitir debido a que ya fueron escogidas
+      while(teclas2 == 0 or teclas2 == 120 or teclas2 == 44 or teclas2 == 192 or teclas2==188 or teclas2==teclas
+            or teclas2 ==Tecl1[0] or teclas2 ==Tecl1[1] or teclas2 ==Tecl1[2] 
+            or teclas2 ==Tecl1[3] or teclas2 ==Tecl1[4] or teclas2 ==Tecl1[5] 
+            or teclas2 ==Tecl1[6] or teclas2 ==Tecl2[0] or teclas2 ==Tecl2[1]
+            or teclas2 ==Tecl2[2] or teclas2 ==Tecl2[3] or teclas2 ==Tecl2[4]
+            or  teclas2 ==Tecl2[5] or teclas2 ==Tecl2[6]){teclas2= teclado();}// se espera hasta que se presione una tecla  
+        delay (230);
+        key_f=0;      
+        Serial.print("teclas2 \t");Serial.print(teclas2);Serial.print(" \n\n");        
       if(teclas == 49)      { j = 0; k = 0; n='1';}
       else if(teclas == 50) { j = 0; k = 1; n='2';}
       else if(teclas == 51) { j = 0; k = 2; n='3';}
@@ -971,7 +1004,9 @@ if (nivel_1 == 49){
       else if(teclas2 == 68) { l = 3; o = 3;n1='D';}    
       tft.fillRect(o*32, l*32, 32, 32, Array[l][o]); //fila, columna, altura, ancho , valor en [l,o]
       tft.drawRect(o*32, l*32, 32, 32, WHITE);    
-      
+      // imprimir los resultados de la seleción
+      Serial.print("N \t");Serial.print(n);Serial.print(" \n\n");
+      Serial.print("N1 \t");Serial.print(n1);Serial.print(" \n\n");
       delay(700);
     //Sí ambos son iguales.
       if(Array[l][o] == Array[j][k]){ 
@@ -982,7 +1017,9 @@ if (nivel_1 == 49){
         tft.setCursor(64 , 0);
         tft.print(aciertos);
         //bloquear teclas.
-        //tft.print(" ");
+          // se guardan las teclas en dos arrays que permiten despues inhabilitar las teclas.
+        Tecl1[aciertos]= teclas;
+        Tecl2[aciertos]= teclas2;
     // En caso de error.        
       }else if(Array[l][o] != Array[j][k]){                 
         tft.setTextSize(0.8);
@@ -1023,13 +1060,22 @@ if (nivel_1 == 49){
         delay (25); 
       }
       
-          
+    //En otros casos       
       if(teclas == 44 or teclas !=0){ teclas = 0;} //Casos donde se lee mal el pad numerico
       if(teclas2 == 44 or teclas2 !=0){teclas2 = 0;} //Casos donde se lee mal el pad numerico
       if(teclas == 0 and teclas2 == 0){prueba++;}
-        
-    }while(prueba<=8);//end for 
-
+      if(aciertos==8){
+      nivel_1++;
+      Serial.print("Nivel \t");Serial.print(nivel_1);Serial.print(" \n\n");
+      prueba=18;
+      Serial.print("prueba \t");Serial.print(prueba);Serial.print(" \n\n");
+      timerEnd(timer);
+      Serial.print("timmer \t");Serial.print(tiempo1);Serial.print(" \n\n");
+      Serial.print("Aciertos \t");Serial.print(aciertos);Serial.print(" \n\n");
+      break;break;}  
+    }//end for 
+Serial.print("Saliooooo \t");Serial.print(n1);Serial.print(" \n\n");  
+graficar4_4(nivel_1);
 //***************************************************
 //Nivel Medio.  
 }else if(nivel_1 == 50){
@@ -1157,6 +1203,7 @@ if (nivel_1 == 49){
       }
     }
   delay (5000);
+
 //***************************************************
 //Nivel Dificil.   
 }else if(nivel_1 == 51){
@@ -1375,21 +1422,25 @@ void setup() {
   bandera=0;
   scan=20; //Barrido del teclado de 20ms
 
+  timer=timerBegin(0,8000,true); //Configuro Timer 0: presc. 80 (=1MHz)
+  timerAttachInterrupt(timer,&Int_Timer,true); //Hab. int del Timer 0,define rutina de int.  
+
   dibujarImagen(0,0,128,128,image_data_w1,0);
   delay(3000);
   // ****** WHILE **********
   while(nivel_1 == 0 and tamano_1 ==0){// se espera hasta que se cargue nivel y tamaño.
   
   dibujarImagen(0,0,128,128,tamano,0);  
-  while(tamano_1 == 0 or tamano_1 == 120 ){tamano_1 = teclado();} // se espera hasta que se presione una tecla
-    key_f=0;
-    delay(500);
-
+  while(tamano_1 == 0 or tamano_1 == 120 or tamano_1 == 192 or tamano_1 == 196 or tamano_1 == 188){tamano_1 = teclado();} // se espera hasta que se presione una tecla
+    key_f=0;    
+    delay(50);
+    Serial.print("\n El tamaño selecionado es \t");Serial.print(nivel_1);Serial.print(" \n\n");  
+    
     dibujarImagen(0,0,128,128,nivel,0);
-    while(nivel_1 == 0 or nivel_1 == 120){nivel_1 = teclado();} // se espera hasta que se presione una tecla
+    while(nivel_1 == 0 or nivel_1 == 120 or nivel_1 == 192 or nivel_1 == 196 or nivel_1 == 188){nivel_1 = teclado();} // se espera hasta que se presione una tecla
     key_f=0;
-    delay(500);
-    Serial.print(nivel_1);Serial.print(" \n\n");
+    delay(50);
+    Serial.print("El nivel selecionado es \t");Serial.print(nivel_1);Serial.print(" \n\n");
       if(tamano_1== 49){
         graficar4_4(nivel_1); //llamada a la funcion 4*4
       }else if(tamano_1== 50){
