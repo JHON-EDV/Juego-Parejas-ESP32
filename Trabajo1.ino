@@ -812,6 +812,43 @@ void IRAM_ATTR Int_Timer(){
       timerEnd(timer);
     }
 }
+
+volatile uint16_t tiempo2 = 120;//Indica ingreso a interrupción
+volatile uint16_t totalInt2=0;//Contador de interrupciones
+hw_timer_t *timer2=NULL;
+
+void IRAM_ATTR Int_Timer2(){
+    tiempo2--;   
+    tft.fillRect(0, 96, 30 , 15, RED);
+    // tft.setTextColor(WHITE, BLUE);
+    tft.setTextSize(0.5);
+    tft.setCursor(3, 96);
+    tft.print("T: ");  
+    tft.print(tiempo2);      
+    tft.print(" ");      
+    if(tiempo2==0){
+      timerEnd(timer);
+    }
+}
+
+volatile uint16_t tiempo3 = 120;//Indica ingreso a interrupción
+volatile uint16_t totalInt3=0;//Contador de interrupciones
+hw_timer_t *timer3=NULL;
+
+void IRAM_ATTR Int_Timer(){
+    tiempo3--;   
+    tft.fillRect(0, 96, 30 , 15, RED);
+    // tft.setTextColor(WHITE, BLUE);
+    tft.setTextSize(0.5);
+    tft.setCursor(3, 96);
+    tft.print("T: ");  
+    tft.print(tiempo3);      
+    tft.print(" ");      
+    if(tiempo3==0){
+      timerEnd(timer);
+    }
+}
+
 // ************ Función 4*4 ************************
 void graficar4_4(uint8_t  nivel_1) {
   int Array[4][4] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}}; //Matriz de valores 
@@ -1562,8 +1599,7 @@ void setup() {
   bandera=0;
   scan=20; //Barrido del teclado de 20ms
 
-  timer=timerBegin(0,8000,true); //Configuro Timer 0: presc. 80 (=1MHz)
-  timerAttachInterrupt(timer,&Int_Timer,true); //Hab. int del Timer 0,define rutina de int.  
+
 
   dibujarImagen(0,0,128,128,image_data_w1,0);
   delay(3000);
