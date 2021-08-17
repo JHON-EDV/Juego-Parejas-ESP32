@@ -812,43 +812,6 @@ void IRAM_ATTR Int_Timer(){
       timerEnd(timer);
     }
 }
-
-volatile uint16_t tiempo2 = 120;//Indica ingreso a interrupción
-volatile uint16_t totalInt2=0;//Contador de interrupciones
-hw_timer_t *timer2=NULL;
-
-void IRAM_ATTR Int_Timer2(){
-    tiempo2--;   
-    tft.fillRect(0, 96, 30 , 15, RED);
-    // tft.setTextColor(WHITE, BLUE);
-    tft.setTextSize(0.5);
-    tft.setCursor(3, 96);
-    tft.print("T: ");  
-    tft.print(tiempo2);      
-    tft.print(" ");      
-    if(tiempo2==0){
-      timerEnd(timer);
-    }
-}
-
-volatile uint16_t tiempo3 = 120;//Indica ingreso a interrupción
-volatile uint16_t totalInt3=0;//Contador de interrupciones
-hw_timer_t *timer3=NULL;
-
-void IRAM_ATTR Int_Timer(){
-    tiempo3--;   
-    tft.fillRect(0, 96, 30 , 15, RED);
-    // tft.setTextColor(WHITE, BLUE);
-    tft.setTextSize(0.5);
-    tft.setCursor(3, 96);
-    tft.print("T: ");  
-    tft.print(tiempo3);      
-    tft.print(" ");      
-    if(tiempo3==0){
-      timerEnd(timer);
-    }
-}
-
 // ************ Función 4*4 ************************
 void graficar4_4(uint8_t  nivel_1) {
   int Array[4][4] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}}; //Matriz de valores 
@@ -1116,6 +1079,7 @@ graficar4_4(nivel_1);
 //***************************************************
 //Nivel Medio.  
 }else if(nivel_1 == 50){
+  tiempo1 = 100;
   //Asegurarse que no se repiten.
     int f, i, r, p, x;
     int a[8]= { 0,  1,  2,  3,  4,  5,  6,  7};
@@ -1384,9 +1348,275 @@ graficar4_4(nivel_1);
 //***************************************************
 //Nivel Dificil.   
 }else if(nivel_1 == 51){
+  tiempo1 = 80;
+  //Asegurarse que no se repiten.
+    int f, i, r, p, x;
+    int a[8]= { 0,  1,  2,  3,  4,  5,  6,  7};
+    int b[8]= { 0,  0,  0,  0,  0,  0,  0,  0};
+    
+    for (r = 8; r > 0; r--) // here we pick random elements in the array until we got 'em all
+    {
+      x = random(r);
+      p = a[x];
+      
+      for (i = x; x < r; x++) // here we shift all elements (who come AFTER the chosen one) in the array one place to the left
+        {   a[x] = a[x+1];}  
+      b[x] = p;
+    }
+    for (f = 0; f <= 7; f++) // here we print the "new" array to pick from
+    {
+      Serial.print(b[f+1]);
+      Serial.print(" ");      
+    }  
+    Serial.println();
+    Serial.print(" Funcionaaaa \n");
+  // For para crear pareja.
+    for (uint8_t z = 0; z<=7; z++){
+      uint8_t pocionx = random(0,4); // crear pareja al azar
+      uint8_t pociony = random(0,4); // crear pareja al azar
+      uint8_t pocionx2 = random(0,4); // crear pareja al azar
+      uint8_t pociony2 = random(0,4); // crear pareja al azar      
+      uint16_t randon = b[z+1];// Numero random selecionado.   
+
+    // Crear Pareja x,y.
+        if(Array[pocionx][pociony] == 0){
+            Array[pocionx][pociony] = randon; //cargar en el arreglo            
+        }else{
+          while(Array[pocionx][pociony]!=0){
+            pocionx = random(0,4); // crear pareja al azar
+            pociony = random(0,4); // crear pareja al azar    
+            if(Array[pocionx][pociony] == 0){
+              Array[pocionx][pociony] = randon; //cargar en el arreglo           
+              break;
+              }                     
+            }                                
+        }
+        // Crear Pareja x2,y2.  
+        if(Array[pocionx2][pociony2] == 0){         
+            Array[pocionx2][pociony2] = randon; //cargar en el arreglo        
+        }else{
+          while(Array[pocionx][pociony]!=0){
+            pocionx2 = random(0,4); // crear pareja al azar
+            pociony2 = random(0,4); // crear pareja al azar    
+            if(Array[pocionx2][pociony2] == 0){
+              Array[pocionx2][pociony2] = randon; //cargar en el arreglo         
+              break;     
+              }                     
+            }                                
+          }
+                  
+        // Imprimir la matriz, Solo la ultima
+          if(z == 7){
+            Serial.print(Array[0][0]);Serial.print(" \t");Serial.print(Array[0][1]);Serial.print(" \t");Serial.print(Array[0][2]);Serial.print(" \t");Serial.print(Array[0][3]);    
+            Serial.print(" \n"); 
+            Serial.print(Array[1][0]);Serial.print(" \t");Serial.print(Array[1][1]);Serial.print(" \t");Serial.print(Array[1][2]);Serial.print(" \t");Serial.print(Array[1][3]);   
+            Serial.print(" \n"); 
+            Serial.print(Array[2][0]);Serial.print(" \t");Serial.print(Array[2][1]);Serial.print(" \t");Serial.print(Array[2][2]);Serial.print(" \t");Serial.print(Array[2][3]);    
+            Serial.print(" \n");     
+            Serial.print(Array[3][0]);Serial.print(" \t");Serial.print(Array[3][1]);Serial.print(" \t");Serial.print(Array[3][2]);Serial.print(" \t");Serial.print(Array[3][3]); 
+            Serial.print(" \n");   Serial.print(" \n");     
+          }  
+    }
+  
+  // Dibujar el tablero con imagenes.
+    //  naruto,tokyoghoul,kuroko,KNY,katekyo,jujutsu,haikyuu,deku
+    const uint32_t * misimagenes[8] = {naruto,tokyoghoul,kuroko,KNY,katekyo,jujutsu,haikyuu,deku};
+    uint16_t count1 = 0;
+    uint16_t count2 = 0;
+    uint16_t count3 = 0;
+    for (uint8_t y = 0; y < 128; y += 32) {
+      for (uint8_t x = 0; x < 128; x += 32) {
+        tft.fillRect(x, y, 32, 32, BLACK); //fila, columna, altura, ancho
+        dibujarImagen(x,y,32,32,misimagenes[Array[count1][count2]],0); //nivel          
+        tft.drawRect(x, y, 32, 32, BLACK); 
+        tft.setTextSize(1.5);
+        tft.setTextColor(WHITE, Array[count1][count2]);
+        tft.setCursor(x + 2, y + 2);
+        tft.print(Str1Vals[count3]);
+        
+        count2++;
+        count3++;
+        if (count3 == 16) {
+          count1 = 0;
+        }
+        if (count1 == 4) {
+          count1 = 0;
+        }
+        if(count2 == 4){
+          count1++;
+          count2 = 0;
+        }
+      }
+    }
+  delay (5000);
+  // Mostar la tabla de usuario.
+    uint16_t count = 0;
+    for (uint8_t y = 0; y < 128; y += 32) {
+        for (uint8_t x = 0; x < 128; x += 32) {
+          tft.fillRect(x, y, 32, 32, BLACK); //fila, columna, altura, ancho    
+          tft.setTextSize(3.8);
+            if (Str1Vals[count] == 'A' || Str1Vals[count] == 'B' || Str1Vals[count] == 'C' 
+                || Str1Vals[count] == 'D' || Str1Vals[count] == '*' || Str1Vals[count] == '#' ) {
+            tft.setTextColor(WHITE, RED);
+            tft.fillRect(x, y, 32, 32, RED); 
+            }else{
+            tft.setTextColor(WHITE, BLUE);
+            tft.fillRect(x, y, 32, 32, BLUE); 
+            }
+            tft.drawRect(x, y, 32, 32, WHITE); 
+            tft.setCursor(x + 5, y + 2);
+            tft.print(Str1Vals[count]);
+          count++;
+          if (count == 16) {
+          count = 0;
+        }
+      }
+    }
+  delay (5000);
+  //logica del juego.
+    uint8_t j,k;
+    char n,n1;    
+    uint8_t l,o; 
+    uint8_t prueba=0,aciertos = 0;
+    timerAlarmWrite(timer,10000,true); //Timer 0 configurado para 1000000 de conteos con autorecarga
+    timerAlarmEnable(timer);  
+    while(prueba >= 16 or tiempo1 != 0){
+      Serial.print("\n");Serial.print(prueba);Serial.print("\n");      
+      while(teclas == 0 or teclas == 120 or teclas == 44 or teclas == 192 or teclas== 188
+            or teclas ==Tecl1[0] or teclas ==Tecl1[1] or teclas ==Tecl1[2] 
+            or teclas ==Tecl1[3] or teclas ==Tecl1[4] or teclas ==Tecl1[5] 
+            or teclas ==Tecl1[6] or teclas ==Tecl2[0] or teclas ==Tecl2[1]
+            or teclas ==Tecl2[2] or teclas ==Tecl2[3] or teclas ==Tecl2[4]
+            or  teclas ==Tecl2[5] or teclas ==Tecl2[6]){teclas= teclado();}// se espera hasta que se presione una tecla  
+        delay (230);
+        key_f=0;      
+        Serial.print("teclas \t");Serial.print(teclas);Serial.print(" \n\n");
+      
+      // Se compara con todas las señales raras o que no se pueden admitir debido a que ya fueron escogidas
+      while(teclas2 == 0 or teclas2 == 120 or teclas2 == 44 or teclas2 == 192 or teclas2==188 or teclas2==teclas
+            or teclas2 ==Tecl1[0] or teclas2 ==Tecl1[1] or teclas2 ==Tecl1[2] 
+            or teclas2 ==Tecl1[3] or teclas2 ==Tecl1[4] or teclas2 ==Tecl1[5] 
+            or teclas2 ==Tecl1[6] or teclas2 ==Tecl2[0] or teclas2 ==Tecl2[1]
+            or teclas2 ==Tecl2[2] or teclas2 ==Tecl2[3] or teclas2 ==Tecl2[4]
+            or  teclas2 ==Tecl2[5] or teclas2 ==Tecl2[6]){teclas2= teclado();}// se espera hasta que se presione una tecla  
+        delay (230);
+        key_f=0;      
+        Serial.print("teclas2 \t");Serial.print(teclas2);Serial.print(" \n\n");        
+      if(teclas == 49)      { j = 0; k = 0; n='1';}
+      else if(teclas == 50) { j = 0; k = 1; n='2';}
+      else if(teclas == 51) { j = 0; k = 2; n='3';}
+      else if(teclas == 65) { j = 0; k = 3; n='A';}
+      else if(teclas == 52) { j = 1; k = 0; n='4';}
+      else if(teclas == 53) { j = 1; k = 1; n='5';}
+      else if(teclas == 54) { j = 1; k = 2; n='6';}
+      else if(teclas == 66) { j = 1; k = 3; n='B';}
+      else if(teclas == 55) { j = 2; k = 0; n='7';}
+      else if(teclas == 56) { j = 2; k = 1; n='8';}
+      else if(teclas == 57) { j = 2; k = 2; n='9';}
+      else if(teclas == 67) { j = 2; k = 3; n='C';}
+      else if(teclas == 42) { j = 3; k = 0; n='*';}
+      else if(teclas == 48) { j = 3; k = 1; n='0';}
+      else if(teclas == 35) { j = 3; k = 2; n='#';}
+      else if(teclas == 68) { j = 3; k = 3; n='D';}
+      dibujarImagen(k*32,j*32,32,32,misimagenes[Array[j][k]],0); //nivel      
+      //tft.fillRect(k*32, j*32, 32, 32, Array[j][k]); //fila, columna, altura, ancho, valor en [j,k]
+      tft.drawRect(k*32, j*32, 32, 32, WHITE);   
+      
+
+      if(teclas2 == 49)      { l = 0; o = 0;n1='1';}
+      else if(teclas2 == 50) { l = 0; o = 1;n1='2';}
+      else if(teclas2 == 51) { l = 0; o = 2;n1='3';}
+      else if(teclas2 == 65) { l = 0; o = 3;n1='A';}
+      else if(teclas2 == 52) { l = 1; o = 0;n1='4';}
+      else if(teclas2 == 53) { l = 1; o = 1;n1='5';}
+      else if(teclas2 == 54) { l = 1; o = 2;n1='6';}
+      else if(teclas2 == 66) { l = 1; o = 3;n1='B';}
+      else if(teclas2 == 55) { l = 2; o = 0;n1='7';}
+      else if(teclas2 == 56) { l = 2; o = 1;n1='8';}
+      else if(teclas2 == 57) { l = 2; o = 2;n1='9';}
+      else if(teclas2 == 67) { l = 2; o = 3;n1='C';}
+      else if(teclas2 == 42) { l = 3; o = 0;n1='*';}
+      else if(teclas2 == 48) { l = 3; o = 1;n1='0';}
+      else if(teclas2 == 35) { l = 3; o = 2;n1='#';}
+      else if(teclas2 == 68) { l = 3; o = 3;n1='D';}    
+      dibujarImagen(o*32,l*32,32,32,misimagenes[Array[l][o]],0); //nivel          
+      //tft.fillRect(o*32, l*32, 32, 32, Array[l][o]); //fila, columna, altura, ancho , valor en [l,o]
+      tft.drawRect(o*32, l*32, 32, 32, WHITE);    
+      // imprimir los resultados de la seleción
+      Serial.print("N \t");Serial.print(n);Serial.print(" \n\n");
+      Serial.print("N1 \t");Serial.print(n1);Serial.print(" \n\n");
+      delay(700);
+    //Sí ambos son iguales.
+      if(Array[l][o] == Array[j][k]){ 
+        aciertos++;
+        tft.setTextSize(0.8);
+        tft.setCursor(3 , 0);
+        tft.print("Acierto.");
+        tft.setCursor(64 , 0);
+        tft.print(aciertos);
+        //bloquear teclas.
+          // se guardan las teclas en dos arrays que permiten despues inhabilitar las teclas.
+        Tecl1[aciertos]= teclas;
+        Tecl2[aciertos]= teclas2;
+    // En caso de error.        
+      }else if(Array[l][o] != Array[j][k]){                 
+        tft.setTextSize(0.8);
+        tft.setCursor(3 , 0);
+        tft.print("Error.");
+        tft.setTextSize(3.8);            
+        
+        if (n == 'A' || n == 'B' || n == 'C' 
+            || n == 'D' || n == '*' || n == '#' ) {
+          tft.setTextColor(WHITE, RED);
+          tft.fillRect(k*32, j*32, 32, 32, RED);
+          tft.drawRect(k*32, j*32, 32, 32, WHITE);                                
+          tft.setCursor(k*32+5, j*32+2);
+          tft.print(n); 
+        }else{
+          tft.setTextColor(WHITE, BLUE);
+          tft.fillRect(k*32, j*32, 32, 32, BLUE);   
+          tft.drawRect(k*32, j*32, 32, 32, WHITE);                                
+          tft.setCursor(k*32+5, j*32+2);
+          tft.print(n);
+        }         
+
+
+        if (n1 == 'A' || n1 == 'B' || n1 == 'C' 
+          || n1 == 'D' || n1 == '*' || n1 == '#' ) {
+          tft.setTextColor(WHITE, RED);
+          tft.fillRect(o*32, l*32, 32, 32, RED); 
+          tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
+          tft.setCursor(o*32+5, l*32+2);
+          tft.print(n1);
+        }else{
+          tft.setTextColor(WHITE, BLUE);              
+          tft.fillRect(o*32, l*32, 32, 32, BLUE);   
+          tft.drawRect(o*32, l*32, 32, 32, WHITE);                                
+          tft.setCursor(o*32+5, l*32+2);
+          tft.print(n1);
+        }                 
+        delay (25); 
+      }
+      
+    //En otros casos       
+      if(teclas == 44 or teclas !=0){ teclas = 0;} //Casos donde se lee mal el pad numerico
+      if(teclas2 == 44 or teclas2 !=0){teclas2 = 0;} //Casos donde se lee mal el pad numerico
+      if(teclas == 0 and teclas2 == 0){prueba++;}
+      if(aciertos==8){
+      nivel_1=49;
+      Serial.print("Nivel \t");Serial.print(nivel_1);Serial.print(" \n\n");
+      prueba=18;
+      Serial.print("prueba \t");Serial.print(prueba);Serial.print(" \n\n");
+      timerEnd(timer);
+      Serial.print("timmer \t");Serial.print(tiempo1);Serial.print(" \n\n");
+      Serial.print("Aciertos \t");Serial.print(aciertos);Serial.print(" \n\n");
+      break;break;}  
+    }//end for 
+Serial.print("Saliooooo \t");Serial.print(n1);Serial.print(" \n\n");  
+graficar6_6(nivel_1);
   }
 }
-
+//todo funciona hasta aqui;
 /// *********** Funcion 6*6 ************************
 void graficar6_6(uint8_t  nivel_1) {
   int Array[7][7] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}}; //Matriz de valores 
@@ -1599,7 +1829,8 @@ void setup() {
   bandera=0;
   scan=20; //Barrido del teclado de 20ms
 
-
+  timer=timerBegin(0,8000,true); //Configuro Timer 0: presc. 80 (=1MHz)
+  timerAttachInterrupt(timer,&Int_Timer,true); //Hab. int del Timer 0,define rutina de int.  
 
   dibujarImagen(0,0,128,128,image_data_w1,0);
   delay(3000);
