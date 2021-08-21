@@ -23,18 +23,20 @@
 
 
 
-Resumen—Esta practica consiste en disenar e implementar ̃
+#Resumen
+Esta practica consiste en disenar e implementar 
 con el ESP32 un juego de memoria que se basa en encontrar
 parejas antes de que termine el tiempo o se acaben los intentos,
-se cuenta con dos tamanos de tablero (4x4 o 6x6) y tres niveles ̃
+se cuenta con dos tamanos de tablero (4x4 o 6x6) y tres niveles
 distintos (facil, medio y dif ́ ́ıcil) que pueden ser elegidos por el
 jugador. Para esto se hace uso de un teclado matricial 4x4 y
 una LCD TFT ILI9163 (o similar) controlada por SPI.
 
+### Palabras clave
 ```
-Palabras clave ESP32, GPIO, Interrupciones
+ESP32, GPIO, Interrupciones
 ```
-### I. INTRODUCCION ́
+# I. INTRODUCCION 
 
 El ESP32 es un dispositivo de bajo costo y bajo consumo de
 energía.
@@ -49,8 +51,8 @@ Para el desarrollo de una aplicacion y la implementación en
 este microcontrolador se puede utilizar el IDE de arduino.
 
 ```
-II. FORMULACION DEL PROBLEMA ́
-```
+# II. FORMULACION DEL PROBLEMA 
+
 Disenar e implementar con el ESP32 un juego de encontrar 
 parejas usando un teclado matricial 4x4 y una LCD TFT
 ILI9163 controlada por SPI.
@@ -80,7 +82,7 @@ los intentos estipulados, se podrá continuar con un nuevo
 tablero.
 ```
 ```
-III. DISENO Y MODELOS DE SOLUCI ̃ ON ́
+III. DISENO Y MODELOS DE SOLUCIÓN 
 Se coloca la imagen de la Figura 1 para que el jugador pueda
 elegir por medio del teclado, el tamaño del tablero con el que
 desea jugar.
@@ -197,8 +199,7 @@ contando hasta un millon con un prescaler de 80, se
 obtuvieron mejores resultados en tiempo de respuesta al
 utilizar un prescaler de 8.000 y contar hasta 1.
 Al utilizar imagenes de 22x22 píxeles para el caso del
-tablero 6x6 notamos que la pantalla cuenta con una reso-
-lucion suficiente, pero es necesario generar un contraste 
+tablero 6x6 notamos que la pantalla cuenta con una resolucion suficiente, pero es necesario generar un contraste 
 entre cada imagen, de esta manera poder diferenciar
 
 ```
