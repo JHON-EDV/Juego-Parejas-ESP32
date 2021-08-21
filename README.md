@@ -62,18 +62,20 @@ tablero.
 Se coloca la imagen de la Figura 1 para que el jugador pueda
 elegir por medio del teclado, el tamaño del tablero con el que
 desea jugar.
-
+ [![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/1.png)](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/1.png)
 ```
-Figura 1: Elección tamano del tablero 
+Figura 1: Elección tamaño del tablero 
 ```
 Luego se genera la imagen de la Figura 2 para que el jugador elija, igual con el teclado, el nivel de dificultad con el que desea jugar.
 
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/2.png)
 ```
 Figura 2: Eleccion nivel de dificultad 
 ```
 
 Para crear las parejas en los tableros y asegurarse de que estas no se repitan, es decir que solo se genere una pareja de la misma imagen/color, se selecciona de un array numeros del 0 al 8 o del 0 al 16 dependiendo del tamano del tablero. A continuación se crea un segundo array, al que se carga el arreglo anterior ordenado de forma aleatoria, para anular las probabilidades de que se genere el mismo tablero dos veces. En la Figura 3 se muestra como se ejecutaron los arreglos para el tablero 4x4.
 
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura1.PNG)
 ```
 Figura 3: Declaracion de arreglos
 ```
@@ -81,12 +83,15 @@ Se genera una matriz de parejas de forma aleatoria. Es decir,
 se colocan en la matriz dos ubicaciones con el mismo valor,
 con los numeros adquiridos en el array (ver Figura 12).
 
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura2.PNG)
 ```
 Figura 4: Creacion de matriz de parejas 
 Se obtienen entonces los siguientes arreglos y la matriz de
 parejas:
 
 ```
+
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura3.PNG)
 ```
 Figura 5: Resultados obtenidos
 ```
@@ -97,6 +102,7 @@ la lectura del teclado mediante interrupciones, en donde la
 tecla oprimida es convertida en posicionesx, yde la matriz
 de juego.
 
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/photo1629231755.jpeg)
 ```
 Figura 6: Llenado de la matriz con los símbolos personalizados
 ```
@@ -114,25 +120,31 @@ Una vez completado un tablero se pasa al siguiente nivel, el decir, si se elige 
 
 # IV. RESULTADOS
 
-A continuacion se muestran algunas im ́ agenes del funciónamiento del juego en los diferentes niveles y tamanos del
+A continuacion se muestran algunas imágenes del funciónamiento del juego en los diferentes niveles y tamanos del
 tablero.
 
+
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura4.PNG)
 ```
 Figura 7: Tablero 4x4 Nivel Facil 
 ```
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura5.PNG)
 ```
 Figura 8: Tablero 4x4 Nivel Facil con un acierto
 ```
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura7.PNG)
 ```
 Figura 9: Tablero 4x4 Nivel Medio
 ```
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura6.PNG)
 ```
 Figura 10: Tablero 4x4 Nivel Medio con un acierto
 ```
-
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura8.PNG)
 ```
 Figura 11: Tablero 6x6 Nivel Difícil
 ```
+![](https://raw.githubusercontent.com/JHON-EDV/Juego-Parejas-ESP32/master/Imagenes/Imagenes%20md/Captura9.PNG)
 ```
 Figura 12: Pantalla puntaje obtenido y tiempo
 ```
